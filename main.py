@@ -43,9 +43,15 @@ def func(message):
 
     
 def word_search(message):
-    path = 'database//'+message.text
-    if os.path.exists(path+'.txt'):
-        print('state')
+    for file in os.scandir('database'):
+        file_open=open('database//'+file.name,'r')
+        text=file_open.read()
+        print(text)
+        if message.text in text:
+            bot.send_message(message.chat.id, text=file.name)
+        else:
+            bot.send_message(message.chat.id, text="Не найдено!")
+        os.scandir('database').close()
 
 def name_search(message):
     path = 'database//'+message.text
